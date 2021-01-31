@@ -20,7 +20,7 @@ interface IconProps {
   backgroundColor?: keyof Theme["colors"];
 }
 
-const SIZE = 48;
+const SIZE = 44;
 
 const Icon = ({
   name,
@@ -38,6 +38,7 @@ const Icon = ({
         width={SIZE}
         height={SIZE}
         borderRadius="l"
+        style={{ borderRadius: SIZE / 2 }}
         {...{ backgroundColor }}
       >
         <Image
