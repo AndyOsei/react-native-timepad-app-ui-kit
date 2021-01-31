@@ -1,14 +1,15 @@
 import * as React from "react";
+import { Dimensions } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { Icon } from "../components";
-import { useTheme } from "@shopify/restyle";
+
+import HomeStack from "./home.navigator";
+
+const { height } = Dimensions.get("window");
+const TAB_BAR_HEIGHT = height / 10;
 
 const Tab = createBottomTabNavigator();
-
-function HomeStack() {
-  return null;
-}
 
 function AddTaskScreen() {
   return null;
@@ -18,9 +19,21 @@ function ReportScreen() {
   return null;
 }
 
-export default function AppNavigation() {
+export default function AppNavigator() {
   return (
     <Tab.Navigator
+      tabBarOptions={{
+        showLabel: false,
+        style: {
+          height: TAB_BAR_HEIGHT,
+          borderTopLeftRadius: 30,
+          borderTopRightRadius: 30,
+          position: "absolute",
+          left: 0,
+          bottom: 0,
+          right: 0,
+        },
+      }}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           let iconName = "";
@@ -31,23 +44,21 @@ export default function AppNavigation() {
             iconName = focused ? "pie-chart-filled" : "pie-chart";
           } else if (route.name === "AddTask") {
             if (focused) {
-              return <Icon name="add" />;
-            } else {
               return (
                 <Icon
                   name="add"
-                  containerProps={{
-                    backgroundColor: "iconBackground",
-                    width: 44,
-                    height: 44,
-                    borderRadius: 22,
-                  }}
+                  showBackground
+                  backgroundColor="iconBackground"
                 />
               );
+            } else {
+              return <Icon name="add" />;
             }
           }
 
-          return <Icon name={iconName} />;
+          return (
+            <Icon name={iconName} iconStyle={{ opacity: focused ? 1 : 0.5 }} />
+          );
         },
       })}
     >

@@ -3,15 +3,16 @@ import { ThemeProvider } from "@shopify/restyle";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import Images from "./src/constants/images";
-import { LoadAsset, theme } from "./src/components";
+import { LoadAsset } from "./src/components";
+import { theme } from "./src/components/Theme";
 import AppNavigator from "./src/navigation";
 
 const fonts = {
-  "Montserrat-Bold": require("./assets/fonts/Rubik-Regular.otf"),
-  "Montserrat-Semibold": require("./assets/fonts/Rubik-Medium.otf"),
+  "Rubik-Regular": require("./assets/fonts/Rubik-Regular.otf"),
+  "Rubik-Medium": require("./assets/fonts/Rubik-Medium.otf"),
 };
 
-const assets = [...Object.values(Images)];
+const assets = [...Object.values<number>(Images)];
 
 export default function App() {
   return (

@@ -4,33 +4,50 @@ import { useTheme } from "@shopify/restyle";
 
 import images from "../constants/images";
 
-import { Theme } from "./Theme";
-
-import { Box } from ".";
+import { Theme, Box } from "./Theme";
 
 interface ContainerProps {
   width?: number;
   height?: number;
-  borderRadius?: number;
+  borderRadius?: keyof Theme["borderRadii"];
   backgroundColor: keyof Theme["colors"];
 }
 
 interface IconProps {
   name: string;
   iconStyle?: ImageStyle;
-  containerProps?: ContainerProps;
+  showBackground?: boolean;
+  backgroundColor?: keyof Theme["colors"];
 }
 
-export default function Icon({ name, iconStyle, containerProps }: IconProps) {
+const SIZE = 48;
+
+const Icon = ({
+  name,
+  iconStyle,
+  showBackground,
+  backgroundColor,
+}: IconProps) => {
   const theme = useTheme();
 
-  const imageStyle = iconStyle ?? { tintColor: theme.colors.iconTintColor };
-  if (containerProps) {
+  if (showBackground) {
     return (
-      <Box alignItems="center" justifyContent="center" {...containerProps}>
-        <Image source={images[name]} style={imageStyle} />
+      <Box
+        alignItems="center"
+        justifyContent="center"
+        width={SIZE}
+        height={SIZE}
+        borderRadius="l"
+        {...{ backgroundColor }}
+      >
+        <Image
+          source={images[name]}
+          style={{ tintColor: theme.colors.iconTintColor, ...iconStyle }}
+        />
       </Box>
     );
   }
-  return <Image source={images[name]} />;
-}
+  return <Image source={images[name]} style={iconStyle} />;
+};
+
+export default Icon;

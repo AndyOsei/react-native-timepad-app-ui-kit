@@ -6,6 +6,12 @@ import { InitialState, NavigationContainer } from "@react-navigation/native";
 import Constants from "expo-constants";
 import { AsyncStorage } from "react-native";
 
+interface LoadAssetsProps {
+  fonts?: FontSource;
+  assets?: number[];
+  children: ReactElement | ReactElement[];
+}
+
 const NAVIGATION_STATE_KEY = `NAVIGATION_STATE_KEY-${Constants.manifest.sdkVersion}`;
 
 export type FontSource = Parameters<typeof Font.loadAsync>[0];
@@ -28,12 +34,6 @@ const useLoadAssets = (assets: number[], fonts: FontSource): boolean => {
   );
   return ready;
 };
-
-interface LoadAssetsProps {
-  fonts?: FontSource;
-  assets?: number[];
-  children: ReactElement | ReactElement[];
-}
 
 const LoadAssets = ({ assets, fonts, children }: LoadAssetsProps) => {
   const [isNavigationReady, setIsNavigationReady] = useState(!__DEV__);
