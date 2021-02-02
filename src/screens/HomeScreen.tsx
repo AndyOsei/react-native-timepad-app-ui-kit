@@ -3,6 +3,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Box, Icon, Task, Text } from "../components";
 import { Theme, makeStyles } from "../components/Theme";
+import { tasks } from "../data";
 
 const useStyle = makeStyles((theme: Theme) => ({
   safeAreaView: {
@@ -22,21 +23,37 @@ const HomeScreen = () => {
           flexDirection="row"
           justifyContent="space-between"
         >
-          <Text variant="h2" color="textForegroundDark">
+          <Text variant="h2" color="textForeground">
             Task
           </Text>
           <Icon name="more" />
         </Box>
-        <Task />
+        <Task
+          title={tasks[0].title}
+          timer={tasks[0].timer}
+          categories={tasks[0].categories}
+          selected
+        />
         <Box marginTop="xl">
           <Box flexDirection="row" justifyContent="space-between">
-            <Text variant="h2" color="textForegroundDark">
+            <Text variant="h2" color="textForeground">
               Today
             </Text>
-            <Text variant="body" color="textForegroundDark">
+            <Text variant="body" color="textForeground">
               See All
             </Text>
           </Box>
+          {tasks.map((task, index) => (
+            <Box marginTop="m">
+              <Task
+                key={index}
+                title={task.title}
+                timer={task.timer}
+                categories={task.categories}
+                selected={task.selected}
+              />
+            </Box>
+          ))}
         </Box>
       </Box>
     </SafeAreaView>

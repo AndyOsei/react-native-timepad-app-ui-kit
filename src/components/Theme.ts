@@ -9,25 +9,34 @@ import {
 } from "@shopify/restyle";
 import { ImageStyle, TextStyle, ViewStyle } from "react-native";
 
-const palette = {
+export const palette = {
   dark: "#070417",
   dark2: "#18152C",
   orange: "#FFA656",
+  lightOrange: "#FFEFF1",
   purple: "#9B51E0",
+  lightPurple: "#F5EEFC",
   lightGray: "#FAFAFF",
+  gray: "#828282",
   green: "#07E092",
+  lightGreen: "#E6FCF4",
   blue: "#3D4ABA",
   pink: "#FD5B71",
+  lightPink: "#FFEFF1",
   white: "#FFFFFF",
 };
 
+export type ColorPalette = typeof palette;
+
 export const theme = createTheme({
   colors: {
+    ...palette,
     iconBackground: palette.dark,
+    iconBackgroundPurple: palette.purple,
     iconTintColor: palette.white,
     mainBackground: palette.lightGray,
-    textForeground: palette.white,
-    textForegroundDark: palette.dark,
+    textForeground: palette.dark,
+    textForegroundAlt: palette.white,
     cardMainBackground: palette.white,
   },
   spacing: {
@@ -56,9 +65,20 @@ export const theme = createTheme({
       fontSize: 24,
       color: "textForeground",
     },
+    h3: {
+      fontFamily: "Rubik-Medium",
+      fontSize: 14,
+      lineHeight: 20,
+      color: "textForeground",
+    },
     body: {
       fontFamily: "Rubik-Regular",
       fontSize: 16,
+      color: "textForeground",
+    },
+    body2: {
+      fontFamily: "Rubik-Regular",
+      fontSize: 12,
       color: "textForeground",
     },
   },
@@ -70,14 +90,13 @@ export default theme;
 
 export const Box = createBox<Theme>();
 export const Text = createText<Theme>();
-export const useTheme = () => useReTheme<Theme>();
 
 type NamedStyles<T> = { [P in keyof T]: ViewStyle | TextStyle | ImageStyle };
 
 export const makeStyles = <T extends NamedStyles<T>>(
   styles: (theme: Theme) => T
 ) => () => {
-  const currentTheme = useTheme();
+  const currentTheme = useReTheme();
   return styles(currentTheme);
 };
 

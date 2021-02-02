@@ -22,6 +22,7 @@ function ReportScreen() {
 export default function AppNavigator() {
   return (
     <Tab.Navigator
+      initialRouteName="Home"
       tabBarOptions={{
         showLabel: false,
         style: {
@@ -52,7 +53,7 @@ export default function AppNavigator() {
                 />
               );
             } else {
-              return <Icon name="add" />;
+              return <Icon name="add" iconStyle={{ opacity: 0.5 }} />;
             }
           }
 

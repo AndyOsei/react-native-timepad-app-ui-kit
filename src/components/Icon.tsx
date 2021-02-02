@@ -6,13 +6,6 @@ import images from "../constants/images";
 
 import { Theme, Box } from "./Theme";
 
-interface ContainerProps {
-  width?: number;
-  height?: number;
-  borderRadius?: keyof Theme["borderRadii"];
-  backgroundColor: keyof Theme["colors"];
-}
-
 interface IconProps {
   name: string;
   iconStyle?: ImageStyle;
