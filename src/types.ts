@@ -13,3 +13,14 @@ export interface Task {
   selected: boolean;
   play: boolean;
 }
+
+export type HomeStackParams = {
+  Home: undefined;
+  Timer: { task: Task };
+};
+
+export type MainTabsParams = {
+  Home: undefined;
+  AddTask: undefined;
+  Report: undefined;
+};

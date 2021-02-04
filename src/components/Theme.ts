@@ -24,6 +24,7 @@ export const palette = {
   pink: "#FD5B71",
   lightPink: "#FFEFF1",
   white: "#FFFFFF",
+  titanWhite: "#E9E9FF",
 };
 
 export type ColorPalette = typeof palette;
@@ -35,9 +36,11 @@ export const theme = createTheme({
     iconBackgroundPurple: palette.purple,
     iconTintColor: palette.white,
     mainBackground: palette.lightGray,
+    mainBackgroundAlt: palette.white,
     textForeground: palette.dark,
     textForegroundAlt: palette.white,
     cardMainBackground: palette.white,
+    indicatorBackground: palette.titanWhite,
   },
   spacing: {
     s: 8,

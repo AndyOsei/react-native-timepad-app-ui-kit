@@ -1,19 +1,41 @@
 import * as React from "react";
+import { TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { CompositeNavigationProp } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 import { Box, Icon, Task, Text } from "../components";
 import { Theme, makeStyles } from "../components/Theme";
 import { tasks } from "../data";
+import { HomeStackParams, MainTabsParams } from "../types";
 
 const useStyle = makeStyles((theme: Theme) => ({
   safeAreaView: {
     flex: 1,
     backgroundColor: theme.colors.mainBackground,
   },
+  taskButton: {
+    marginTop: theme.spacing.m,
+  },
 }));
 
-const HomeScreen = () => {
+type HomeScreenNavigationProp = CompositeNavigationProp<
+  BottomTabNavigationProp<MainTabsParams, "Home">,
+  StackNavigationProp<HomeStackParams>
+>;
+
+type Props = {
+  navigation: HomeScreenNavigationProp;
+};
+
+const HomeScreen = ({ navigation }: Props) => {
   const styles = useStyle();
+
+  const openTimer = () => {
+    navigation.navigate("Timer", { task: {} });
+  };
+
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <Box flex={1} backgroundColor="mainBackground" marginHorizontal="m">
@@ -28,12 +50,14 @@ const HomeScreen = () => {
           </Text>
           <Icon name="more" />
         </Box>
-        <Task
-          title={tasks[0].title}
-          timer={tasks[0].timer}
-          categories={tasks[0].categories}
-          selected
-        />
+        <TouchableOpacity onPress={openTimer}>
+          <Task
+            title={tasks[0].title}
+            timer={tasks[0].timer}
+            categories={tasks[0].categories}
+            selected
+          />
+        </TouchableOpacity>
         <Box marginTop="xl">
           <Box flexDirection="row" justifyContent="space-between">
             <Text variant="h2" color="textForeground">
@@ -44,7 +68,7 @@ const HomeScreen = () => {
             </Text>
           </Box>
           {tasks.map((task, index) => (
-            <Box marginTop="m">
+            <TouchableOpacity style={styles.taskButton} onPress={openTimer}>
               <Task
                 key={index}
                 title={task.title}
@@ -52,7 +76,7 @@ const HomeScreen = () => {
                 categories={task.categories}
                 selected={task.selected}
               />
-            </Box>
+            </TouchableOpacity>
           ))}
         </Box>
       </Box>
